@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spaces by Riya | Interior Design Studio in Mumbai</title>
+  <meta name="description" content="Mumbai's trusted interior design studio. Home interiors, office spaces, modular kitchens & 3D visualization. 200+ homes transformed. Book a free consultation today.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-darker: #080d19;
+      --bg-card: rgba(30, 64, 175, 0.05);
+      --brand-blue: #1e40af;
+      --accent: #3b82f6;
+      --cyan: #06b6d4;
+      --cyan-soft: rgba(6, 182, 212, 0.12);
+      --warm: #f59e0b;
+      --warm-soft: rgba(245, 158, 11, 0.1);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(59, 130, 246, 0.1);
+      --border-hover: rgba(59, 130, 246, 0.2);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Architectural Grid Background */
+    .arch-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .grid-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    .floating-shape {
+      position: absolute;
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      background: rgba(6, 182, 212, 0.02);
+      animation: float-shape 20s ease-in-out infinite;
+    }
+
+    .shape-1 { width: 200px; height: 200px; top: 15%; left: 5%; transform: rotate(15deg); animation-delay: 0s; }
+    .shape-2 { width: 150px; height: 150px; top: 50%; right: 8%; transform: rotate(-10deg); animation-delay: -5s; }
+    .shape-3 { width: 100px; height: 100px; bottom: 20%; left: 15%; transform: rotate(25deg); animation-delay: -10s; }
+
+    @keyframes float-shape {
+      0%, 100% { transform: rotate(15deg) translateY(0); }
+      50% { transform: rotate(15deg) translateY(-20px); }
+    }
+
+    .glow-orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.25; }
+    .glow-1 { width: 400px; height: 400px; background: var(--brand-blue); top: -5%; right: 10%; animation: pulse-glow 12s ease-in-out infinite; }
+    .glow-2 { width: 300px; height: 300px; background: var(--cyan); bottom: 15%; left: -5%; animation: pulse-glow 12s ease-in-out infinite 6s; }
+
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(1.05); }
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.4s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo-mark {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .logo-mark::before { content: ''; position: absolute; inset: 4px; background: var(--bg-dark); }
+    .logo-mark::after { content: ''; position: absolute; width: 12px; height: 12px; background: linear-gradient(135deg, var(--accent), var(--cyan)); top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg); }
+
+    .nav-cta { display: none; }
+    @media (min-width: 768px) { .nav-cta { display: inline-flex; } }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.75rem;
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--cyan)); color: var(--text); box-shadow: 0 4px 20px rgba(59, 130, 246, 0.25); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59, 130, 246, 0.35); }
+
+    .btn-secondary { background: transparent; color: var(--text); border: 2px solid var(--accent); }
+    .btn-secondary:hover { background: rgba(59, 130, 246, 0.1); transform: translateY(-2px); }
+
+    .btn-whatsapp { background: #25D366; color: white; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25); }
+    .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(37, 211, 102, 0.35); }
+
+    /* Sections */
+    section { position: relative; z-index: 1; padding: 5rem 1.5rem; }
+    @media (min-width: 768px) { section { padding: 6rem 2rem; } }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--cyan);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-label::before { content: ''; width: 24px; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--accent)); }
+
+    .section-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.5rem, 3.5vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; }
+    .section-subtitle { font-size: 1.05rem; color: var(--text-muted); }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .floating-shape, .glow-orb { animation: none; }
+    }
+
+    /* Hero */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 5rem; }
+
+    .hero-grid { display: grid; gap: 3rem; align-items: center; }
+    @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--cyan-soft);
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .badge-indicator { width: 8px; height: 8px; background: var(--cyan); animation: pulse-indicator 2s ease-in-out infinite; }
+    @keyframes pulse-indicator { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .hero-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 5.5vw, 3.25rem); line-height: 1.1; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
+
+    .hero-title .highlight { color: var(--cyan); position: relative; }
+    .hero-title .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: underline-anim 0.6s ease-out 0.8s forwards;
+    }
+    @keyframes underline-anim { to { transform: scaleX(1); } }
+
+    .hero-text { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 500px; line-height: 1.7; }
+
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem; }
+
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 2rem; }
+
+    .stat-item { position: relative; padding-left: 1rem; }
+    .stat-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--accent), var(--cyan)); }
+
+    .stat-number { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.75rem; line-height: 1; }
+    .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    /* Hero Visual */
+    .hero-visual { display: none; }
+    @media (min-width: 1024px) { .hero-visual { display: block; position: relative; } }
+
+    .room-preview {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(59, 130, 246, 0.04));
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .room-preview::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--cyan), var(--accent)); }
+
+    .preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+    .preview-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+    .preview-title svg { width: 16px; height: 16px; stroke: var(--cyan); }
+    .preview-badge { background: var(--warm-soft); color: var(--warm); padding: 0.25rem 0.65rem; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .room-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .room-box { background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border); padding: 1.25rem; transition: all 0.3s ease; }
+    .room-box:hover { border-color: var(--cyan); background: rgba(6, 182, 212, 0.05); }
+    .room-box.full-width { grid-column: span 2; }
+
+    .room-icon { width: 40px; height: 40px; background: var(--cyan-soft); display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; }
+    .room-icon svg { width: 20px; height: 20px; stroke: var(--cyan); }
+
+    .room-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.25rem; }
+    .room-value { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; }
+
+    .floating-info {
+      position: absolute;
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.9rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8rem;
+      animation: float-info 3s ease-in-out infinite;
+    }
+    .floating-info-1 { bottom: -10px; right: 30px; animation-delay: 0s; }
+    .floating-info-2 { top: 20px; left: -20px; animation-delay: -1.5s; }
+    @keyframes float-info { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .floating-info svg { width: 14px; height: 14px; }
+    .floating-info .check { stroke: #10b981; }
+    .floating-info .star { stroke: var(--warm); fill: var(--warm); }
+
+    /* Pain Points */
+    .pain-section { background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%); }
+    .pain-header { margin-bottom: 3rem; }
+
+    .pain-grid { display: grid; gap: 1.25rem; }
+    @media (min-width: 768px) { .pain-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .pain-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+    .pain-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(180deg, #ef4444, #f97316);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .pain-card:hover::before { opacity: 1; }
+    .pain-card:hover { transform: translateY(-6px); border-color: var(--border-hover); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3); }
+
+    .pain-number { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2rem; color: rgba(239, 68, 68, 0.2); margin-bottom: 1rem; }
+    .pain-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.6rem; }
+    .pain-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* Services */
+    .services-section { background: var(--bg-darker); }
+    .services-header { text-align: center; margin-bottom: 3rem; }
+    .services-header .section-subtitle { margin: 0 auto; }
+
+    .services-grid { display: grid; gap: 1.25rem; }
+    @media (min-width: 768px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .service-card {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.04), rgba(59, 130, 246, 0.02));
+      border: 1px solid var(--border);
+      padding: 1.75rem;
+      display: flex;
+      gap: 1.25rem;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--accent));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .service-card:hover::after { opacity: 1; }
+    .service-card:hover { background: rgba(6, 182, 212, 0.06); border-color: var(--cyan); transform: translateX(6px); }
+
+    .service-icon { flex-shrink: 0; width: 50px; height: 50px; background: linear-gradient(135deg, var(--accent), var(--cyan)); display: flex; align-items: center; justify-content: center; }
+    .service-icon svg { width: 24px; height: 24px; stroke: white; }
+
+    .service-content h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; }
+    .service-content p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* Why Us */
+    .why-section { background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 100%); }
+    .why-header { text-align: center; margin-bottom: 3rem; }
+    .why-header .section-subtitle { margin: 0 auto; }
+
+    .why-grid { display: grid; gap: 1.5rem; }
+    @media (min-width: 768px) { .why-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .why-card { background: var(--bg-card); border: 1px solid var(--border); padding: 2rem; text-align: center; transition: all 0.4s ease; }
+    .why-card:hover { transform: translateY(-6px); border-color: var(--cyan); box-shadow: 0 0 30px rgba(6, 182, 212, 0.08); }
+
+    .why-icon {
+      width: 56px; height: 56px;
+      margin: 0 auto 1.25rem;
+      background: var(--cyan-soft);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .why-icon::before { content: ''; position: absolute; inset: -4px; border: 1px solid rgba(6, 182, 212, 0.2); }
+    .why-icon svg { width: 28px; height: 28px; stroke: var(--cyan); }
+
+    .why-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; }
+    .why-text { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* Testimonials */
+    .testimonials-section { background: var(--bg-dark); }
+    .testimonials-header { text-align: center; margin-bottom: 3rem; }
+    .testimonials-header .section-subtitle { margin: 0 auto; }
+
+    /* Sample badge */
+    .sample-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      color: var(--cyan);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      margin-top: 0.75rem;
+    }
+
+    .testimonials-grid { display: grid; gap: 1.25rem; }
+    @media (min-width: 768px) { .testimonials-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .testimonial-card { background: var(--bg-card); border: 1px solid var(--border); padding: 1.75rem; transition: all 0.4s ease; }
+    .testimonial-card:hover { transform: translateY(-4px); border-color: var(--border-hover); }
+
+    .testimonial-project {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.1));
+      color: var(--cyan);
+      padding: 0.3rem 0.7rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-quote { font-size: 0.9rem; line-height: 1.7; color: var(--text); margin-bottom: 1.25rem; }
+
+    .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+
+    .testimonial-avatar { width: 42px; height: 42px; background: linear-gradient(135deg, var(--accent), var(--cyan)); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; }
+
+    .testimonial-info h4 { font-weight: 600; font-size: 0.95rem; }
+    .testimonial-info p { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* CTA */
+    .cta-section { background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%); text-align: center; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(59, 130, 246, 0.06));
+      border: 1px solid var(--border);
+      padding: 3rem 1.5rem;
+      max-width: 650px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--cyan), var(--accent)); }
+    @media (min-width: 768px) { .cta-card { padding: 3.5rem 2.5rem; } }
+
+    .cta-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.4rem, 3vw, 1.85rem); margin-bottom: 0.75rem; }
+    .cta-text { font-size: 1rem; color: var(--text-muted); margin-bottom: 2rem; }
+    .cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+
+    /* Footer */
+    .footer { background: var(--bg-darker); border-top: 1px solid var(--border); padding: 2.5rem 1.5rem; }
+
+    .footer-content { max-width: 1200px; margin: 0 auto; display: grid; gap: 2rem; }
+    @media (min-width: 768px) { .footer-content { grid-template-columns: 2fr 1fr 1fr; } }
+
+    .footer-brand h3 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+
+    .footer-logo { width: 28px; height: 28px; background: linear-gradient(135deg, var(--accent), var(--cyan)); position: relative; }
+    .footer-logo::before { content: ''; position: absolute; inset: 3px; background: var(--bg-darker); }
+    .footer-logo::after { content: ''; position: absolute; width: 8px; height: 8px; background: linear-gradient(135deg, var(--accent), var(--cyan)); top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg); }
+
+    .footer-brand p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+    .footer-section h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; margin-bottom: 1rem; color: var(--text); }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.5rem; }
+    .footer-links a, .footer-links span { font-size: 0.9rem; color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; }
+    .footer-links a:hover { color: var(--cyan); }
+
+    .footer-bottom { max-width: 1200px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.85rem; color: var(--text-muted); }
+
+    .btn:focus-visible, a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    :target { scroll-margin-top: 80px; }
+
+    /* Demo Banner */
+    .demo-banner {
+      position: fixed;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      background: rgba(8, 13, 25, 0.9);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      backdrop-filter: blur(12px);
+      padding: 0.6rem 1.25rem;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .demo-banner span { color: var(--cyan); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- Demo Banner -->
+  <div class="demo-banner">
+    <span>DEMO</span> — Sample page by Quantor · quantor-agency.github.io
+  </div>
+
+  <!-- Background -->
+  <div class="arch-bg" aria-hidden="true">
+    <div class="grid-pattern"></div>
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+    <div class="glow-orb glow-1"></div>
+    <div class="glow-orb glow-2"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-logo">
+      <div class="logo-mark"></div>
+      Spaces by Riya
+    </div>
+    <a href="#cta" class="btn btn-primary nav-cta">Free Consultation</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge reveal">
+            <span class="badge-indicator"></span>
+            Mumbai's Trusted Interior Design Studio
+          </div>
+          <h1 class="hero-title reveal reveal-delay-1">
+            Your Home, Finally the Way You <span class="highlight">Imagined</span>
+          </h1>
+          <p class="hero-text reveal reveal-delay-2">
+            Stop scrolling through Instagram feeling unsatisfied with your space. We transform ordinary rooms into stunning, functional spaces that reflect who you are — on time and within budget.
+          </p>
+          <div class="hero-ctas reveal reveal-delay-3">
+            <a href="#cta" class="btn btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+              Get Free Design Consultation
+            </a>
+            <a href="tel:+910000000000" class="btn btn-secondary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              Call Now
+            </a>
+          </div>
+          <div class="hero-stats reveal reveal-delay-4">
+            <div class="stat-item">
+              <div class="stat-number">200+</div>
+              <div class="stat-label">Homes Transformed</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">8</div>
+              <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">4.9</div>
+              <div class="stat-label">Client Rating</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal reveal-delay-2">
+          <div class="room-preview">
+            <div class="preview-header">
+              <div class="preview-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="3" y1="9" x2="21" y2="9"/>
+                  <line x1="9" y1="21" x2="9" y2="9"/>
+                </svg>
+                Current Project
+              </div>
+              <div class="preview-badge">In Progress</div>
+            </div>
+            <div class="room-grid">
+              <div class="room-box">
+                <div class="room-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                  </svg>
+                </div>
+                <div class="room-label">Project Type</div>
+                <div class="room-value">3BHK Apartment</div>
+              </div>
+              <div class="room-box">
+                <div class="room-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <div class="room-label">Timeline</div>
+                <div class="room-value">45 Days</div>
+              </div>
+              <div class="room-box full-width">
+                <div class="room-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  </svg>
+                </div>
+                <div class="room-label">Areas</div>
+                <div class="room-value">Living Room, Kitchen, 3 Bedrooms, Balcony</div>
+              </div>
+            </div>
+          </div>
+          <div class="floating-info floating-info-1">
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            On Schedule
+          </div>
+          <div class="floating-info floating-info-2">
+            <svg class="star" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            Premium Quality
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="pain-section">
+    <div class="container">
+      <div class="pain-header">
+        <div class="section-label reveal">Common Struggles</div>
+        <h2 class="section-title reveal reveal-delay-1">Why Your Home Still Doesn't Feel Right</h2>
+        <p class="section-subtitle reveal reveal-delay-2">You've tried Pinterest, YouTube, even hired a contractor. But something still feels off.</p>
+      </div>
+
+      <div class="pain-grid">
+        <div class="pain-card reveal">
+          <div class="pain-number">01</div>
+          <h3 class="pain-title">Ideas Don't Match Reality</h3>
+          <p class="pain-text">You saved hundreds of inspiration images, but when you try to recreate them, nothing looks the same. Colors clash, proportions feel wrong, and the vibe is completely lost.</p>
+        </div>
+
+        <div class="pain-card reveal reveal-delay-1">
+          <div class="pain-number">02</div>
+          <h3 class="pain-title">Contractor Coordination Nightmare</h3>
+          <p class="pain-text">Carpenter says one thing, electrician another. Painters show up late. No one takes responsibility when something goes wrong. You're managing people instead of enjoying the process.</p>
+        </div>
+
+        <div class="pain-card reveal reveal-delay-2">
+          <div class="pain-number">03</div>
+          <h3 class="pain-title">Budget Keeps Blowing Up</h3>
+          <p class="pain-text">Every contractor gives a "final quote" that keeps expanding. Hidden charges, material upgrades — suddenly you've spent twice what you planned with no end in sight.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services-section" id="services">
+    <div class="container">
+      <div class="services-header">
+        <div class="section-label reveal" style="justify-content:center;">Our Services</div>
+        <h2 class="section-title reveal reveal-delay-1">End-to-End Design Solutions</h2>
+        <p class="section-subtitle reveal reveal-delay-2">From concept to completion — one team, complete accountability.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div class="service-content">
+            <h3>Home Interiors</h3>
+            <p>Complete home makeovers or single room transformations. We handle everything from space planning and furniture selection to lighting design and styling.</p>
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+          </div>
+          <div class="service-content">
+            <h3>Office Spaces</h3>
+            <p>Workspaces that inspire productivity and impress clients. From home offices to commercial setups, we create environments that reflect your brand.</p>
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
+              <rect x="9" y="9" width="6" height="6"/>
+              <line x1="9" y1="1" x2="9" y2="4"/>
+              <line x1="15" y1="1" x2="15" y2="4"/>
+              <line x1="9" y1="20" x2="9" y2="23"/>
+              <line x1="15" y1="20" x2="15" y2="23"/>
+              <line x1="20" y1="9" x2="23" y2="9"/>
+              <line x1="20" y1="14" x2="23" y2="14"/>
+              <line x1="1" y1="9" x2="4" y2="9"/>
+              <line x1="1" y1="14" x2="4" y2="14"/>
+            </svg>
+          </div>
+          <div class="service-content">
+            <h3>Modular Kitchens</h3>
+            <p>Custom kitchens designed for how you actually cook. Smart storage, durable materials, and layouts that make cooking a pleasure, not a chore.</p>
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <div class="service-content">
+            <h3>3D Visualization</h3>
+            <p>See your space before we build it. Photorealistic 3D renders let you explore every angle, make changes early, and know exactly what you're getting.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Us -->
+  <section class="why-section">
+    <div class="container">
+      <div class="why-header">
+        <div class="section-label reveal" style="justify-content:center;">Why Choose Us</div>
+        <h2 class="section-title reveal reveal-delay-1">Design Without the Drama</h2>
+        <p class="section-subtitle reveal reveal-delay-2">We've built our process to solve the problems every homeowner faces.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <h3 class="why-title">Fixed Timeline Delivery</h3>
+          <p class="why-text">We commit to a completion date and stick to it. No vague promises, no endless delays. You know exactly when your home will be ready.</p>
+        </div>
+
+        <div class="why-card reveal reveal-delay-1">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <h3 class="why-title">Transparent Pricing</h3>
+          <p class="why-text">One detailed quote with everything included. No hidden charges, no surprise bills. What you approve is what you pay — guaranteed.</p>
+        </div>
+
+        <div class="why-card reveal reveal-delay-2">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3 class="why-title">Single Point of Contact</h3>
+          <p class="why-text">One dedicated project manager handles everything. Contractors, materials, timelines — you never have to coordinate multiple vendors.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="testimonials-header">
+        <div class="section-label reveal" style="justify-content:center;">Client Stories</div>
+        <h2 class="section-title reveal reveal-delay-1">Homes We've Transformed</h2>
+        <p class="section-subtitle reveal reveal-delay-2">Real projects, real results, real happy homeowners.</p>
+        <div class="reveal reveal-delay-3" style="display:flex; justify-content:center; margin-top:0.75rem;">
+          <span class="sample-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Sample reviews for demonstration
+          </span>
+        </div>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-project">2BHK in Andheri</div>
+          <p class="testimonial-quote">We had a clear vision but no idea how to execute it. Riya understood exactly what we wanted and translated it into something even better. The 3D renders looked great, but the real home is stunning.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">AS</div>
+            <div class="testimonial-info">
+              <h4>Aisha Sharma</h4>
+              <p>Marketing Executive</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal reveal-delay-1">
+          <div class="testimonial-project">3BHK in Powai</div>
+          <p class="testimonial-quote">Most designers just copy what's trending. Riya took time to understand how our family lives — where we eat, where the kids play, what we actually need. Our home finally works for us.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">VP</div>
+            <div class="testimonial-info">
+              <h4>Vikram Patel</h4>
+              <p>Software Engineer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal reveal-delay-2">
+          <div class="testimonial-project">Office in BKC</div>
+          <p class="testimonial-quote">Our old office was depressing. Clients weren't impressed, team morale was low. The new space has transformed how we work — people actually want to come to the office now.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">RM</div>
+            <div class="testimonial-info">
+              <h4>Rahul Mehta</h4>
+              <p>Startup Founder</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="cta">
+    <div class="container">
+      <div class="cta-card reveal">
+        <h2 class="cta-title">Ready to Love Your Space?</h2>
+        <p class="cta-text">Book a free design consultation. We'll visit your home, understand your needs, and show you what's possible — no obligations, no pressure.</p>
+        <div class="cta-buttons">
+          <a href="https://wa.me/910000000000" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            WhatsApp Us
+          </a>
+          <a href="tel:+910000000000" class="btn btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Call +91 00000 00000
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>
+          <div class="footer-logo"></div>
+          Spaces by Riya
+        </h3>
+        <p>Creating beautiful, functional spaces in Mumbai since 2016. From concept to completion, we design homes that reflect your lifestyle.</p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#services">Home Interiors</a></li>
+          <li><a href="#services">Office Spaces</a></li>
+          <li><a href="#services">Modular Kitchens</a></li>
+          <li><a href="#services">3D Visualization</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><span>Andheri West, Mumbai</span></li>
+          <li><a href="tel:+910000000000">+91 00000 00000</a></li>
+          <li><a href="mailto:hello@spacesbyriya.com">hello@spacesbyriya.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Spaces by Riya. All rights reserved. &nbsp;·&nbsp; Demo page by <a href="https://quantor-agency.github.io" style="color:var(--cyan); text-decoration:none;">Quantor</a></p>
+    </div>
+  </footer>
+
+  <script>
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Nav scroll
+    const nav = document.querySelector('.nav');
+    function handleScroll() { nav.classList.toggle('scrolled', window.scrollY > 50); }
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Card tilt
+    document.querySelectorAll('.pain-card, .service-card, .testimonial-card, .why-card, .room-box').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        if (prefersReducedMotion) return;
+        const rect = card.getBoundingClientRect();
+        const rotateX = (e.clientY - rect.top - rect.height / 2) / 35;
+        const rotateY = (rect.width / 2 - (e.clientX - rect.left)) / 35;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+
+    // Stat counter
+    function animateValue(element, target, isDecimal = false) {
+      if (prefersReducedMotion) { element.textContent = isDecimal ? target.toFixed(1) : target + (element.textContent.includes('+') ? '+' : ''); return; }
+      let current = 0;
+      const suffix = element.textContent.includes('+') ? '+' : '';
+      const increment = target / (1500 / 16);
+      function update() {
+        current += increment;
+        if (current < target) {
+          element.textContent = isDecimal ? current.toFixed(1) : Math.floor(current) + suffix;
+          requestAnimationFrame(update);
+        } else {
+          element.textContent = isDecimal ? target.toFixed(1) : target + suffix;
+        }
+      }
+      update();
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const text = entry.target.textContent;
+          if (text.includes('+')) { const n = parseInt(text); if (!isNaN(n)) animateValue(entry.target, n); }
+          else if (text.includes('.')) { const n = parseFloat(text); if (!isNaN(n)) animateValue(entry.target, n, true); }
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-number').forEach(el => statsObserver.observe(el));
+  </script>
+</body>
+</html>
